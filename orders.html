@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Cloud Canteen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="dashboard-header">
+    <div>
+        <h2>🍽️ Cloud Canteen</h2>
+        <p>Pre-Order Management System</p>
+    </div>
+
+    <button onclick="goDashboard()">Dashboard</button>
+</header>
+
+<main class="menu-container">
+
+    <h1>📦 My Orders</h1>
+    <p class="menu-subtitle">
+        Track your previous and current orders.
+    </p>
+
+    <div id="ordersList"></div>
+
+</main>
+
+<script>
+
+function loadOrders() {
+
+    let orders =
+        JSON.parse(localStorage.getItem("orders")) || [];
+
+    let ordersList =
+        document.getElementById("ordersList");
+
+    ordersList.innerHTML = "";
+
+    if (orders.length === 0) {
+
+        ordersList.innerHTML = `
+            <div class="food-card">
+                <h3>No orders yet 📦</h3>
+                <p>Your placed orders will appear here.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+    orders.forEach(function(order, index) {
+
+        ordersList.innerHTML += `
+            <div class="order-card">
+
+                <div>
+                    <h3>Order #CC${1001 + index}</h3>
+
+                    <p>
+                        ${order.items}
+                    </p>
+
+                    <p>
+                        Total: ₹${order.total}
+                    </p>
+
+                    <small>
+                        ${order.date}
+                    </small>
+                </div>
+
+                <span class="status">
+                    ${order.status}
+                </span>
+
+            </div>
+        `;
+    });
+}
+
+
+function goDashboard() {
+
+    window.location.href = "dashboard.html";
+
+}
+
+loadOrders();
+
+</script>
+
+</body>
+</html>
