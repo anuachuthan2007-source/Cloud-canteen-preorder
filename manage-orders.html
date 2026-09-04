@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Orders - Cloud Canteen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h2>📦 Manage Orders</h2>
+    <button onclick="goAdmin()">Admin Dashboard</button>
+</header>
+
+<div class="container">
+
+    <h1>Manage Student Orders</h1>
+
+    <div id="ordersList"></div>
+
+</div>
+
+<script>
+
+function loadOrders() {
+
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    let container = document.getElementById("ordersList");
+
+    if (orders.length === 0) {
+        container.innerHTML = "<p>No orders available.</p>";
+        return;
+    }
+
+    container.innerHTML = "";
+
+    orders.forEach(function(order, index) {
+
+        container.innerHTML += `
+            <div class="card">
+
+                <h3>Order #CC${1001 + index}</h3>
+
+                <p><strong>Items:</strong> ${order.items}</p>
+
+                <p><strong>Total:</strong> ₹${order.total}</p>
+
+                <p><strong>Date:</strong> ${order.date}</p>
+
+                <p><strong>Status:</strong> ${order.status}</p>
+
+                <button onclick="updateStatus(${index})">
+                    Update Status
+                </button>
+
+            </div>
+        `;
+
+    });
+}
+
+function updateStatus(index) {
+
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    let status = prompt(
+        "Enter status: Preparing / Ready / Completed"
+    );
+
+    if (status) {
+
+        orders[index].status = status;
+
+        localStorage.setItem(
+            "orders",
+            JSON.stringify(orders)
+        );
+
+        loadOrders();
+    }
+}
+
+function goAdmin() {
+    window.location.href = "admin.html";
+}
+
+loadOrders();
+
+</script>
+
+</body>
+</html>
