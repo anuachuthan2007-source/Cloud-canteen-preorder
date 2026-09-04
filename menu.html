@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Menu - Cloud Canteen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="dashboard-header">
+    <div>
+        <h2>🍽️ Cloud Canteen</h2>
+        <p>Pre-Order Management System</p>
+    </div>
+
+    <button onclick="goDashboard()">Dashboard</button>
+</header>
+
+<main class="menu-container">
+
+    <h1>Today's Food Menu 🍔</h1>
+    <p class="menu-subtitle">
+        Select your favourite food and add it to your cart.
+    </p>
+
+    <div class="food-grid">
+
+        <!-- Food 1 -->
+        <div class="food-card">
+            <div class="food-image">🍔</div>
+            <h3>Veg Burger</h3>
+            <p>Fresh vegetable burger</p>
+            <h4>₹60</h4>
+            <button onclick="addFood('Veg Burger', 60)">
+                Add to Cart
+            </button>
+        </div>
+
+        <!-- Food 2 -->
+        <div class="food-card">
+            <div class="food-image">🍚</div>
+            <h3>Veg Fried Rice</h3>
+            <p>Fresh vegetable fried rice</p>
+            <h4>₹80</h4>
+            <button onclick="addFood('Veg Fried Rice', 80)">
+                Add to Cart
+            </button>
+        </div>
+
+        <!-- Food 3 -->
+        <div class="food-card">
+            <div class="food-image">🥪</div>
+            <h3>Sandwich</h3>
+            <p>Fresh vegetable sandwich</p>
+            <h4>₹50</h4>
+            <button onclick="addFood('Sandwich', 50)">
+                Add to Cart
+            </button>
+        </div>
+
+        <!-- Food 4 -->
+        <div class="food-card">
+            <div class="food-image">🍕</div>
+            <h3>Veg Pizza</h3>
+            <p>Cheesy vegetable pizza</p>
+            <h4>₹100</h4>
+            <button onclick="addFood('Veg Pizza', 100)">
+                Add to Cart
+            </button>
+        </div>
+
+        <!-- Food 5 -->
+        <div class="food-card">
+            <div class="food-image">🍜</div>
+            <h3>Veg Noodles</h3>
+            <p>Hot and tasty noodles</p>
+            <h4>₹70</h4>
+            <button onclick="addFood('Veg Noodles', 70)">
+                Add to Cart
+            </button>
+        </div>
+
+        <!-- Food 6 -->
+        <div class="food-card">
+            <div class="food-image">🥤</div>
+            <h3>Fresh Juice</h3>
+            <p>Fresh and healthy juice</p>
+            <h4>₹30</h4>
+            <button onclick="addFood('Fresh Juice', 30)">
+                Add to Cart
+            </button>
+        </div>
+
+    </div>
+
+</main>
+
+<script>
+
+function addFood(name, price) {
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart.push({
+        name: name,
+        price: price
+    });
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    alert(name + " added to cart! 🛒");
+}
+
+function goDashboard() {
+    window.location.href = "dashboard.html";
+}
+
+</script>
+
+</body>
+</html>
