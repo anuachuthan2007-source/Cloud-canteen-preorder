@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Foods - Cloud Canteen</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Header -->
+    <header class="dashboard-header">
+
+        <div>
+            <h1>🍔 Manage Foods</h1>
+            <p>Add and manage canteen food items</p>
+        </div>
+
+        <button onclick="goAdmin()">Admin Dashboard</button>
+
+    </header>
+
+
+    <main class="menu-container">
+
+        <h2>Add New Food 🍽️</h2>
+
+        <!-- Add Food Form -->
+        <div class="food-card">
+
+            <input
+                type="text"
+                id="foodName"
+                placeholder="Food Name"
+            >
+
+            <br><br>
+
+            <input
+                type="number"
+                id="foodPrice"
+                placeholder="Price"
+            >
+
+            <br><br>
+
+            <input
+                type="text"
+                id="foodDescription"
+                placeholder="Food Description"
+            >
+
+            <br><br>
+
+            <button onclick="addFood()">
+                ➕ Add Food
+            </button>
+
+        </div>
+
+
+        <!-- Food List -->
+        <h2>Available Foods 🍔</h2>
+
+        <div id="foodList"></div>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            © 2026 Cloud Canteen | Food Management
+        </p>
+
+    </footer>
+
+</div>
+
+
+<script>
+
+let foods =
+    JSON.parse(localStorage.getItem("foods")) || [
+
+    {
+        name: "Veg Burger",
+        price: 60,
+        description: "Fresh vegetable burger"
+    },
+
+    {
+        name: "Veg Fried Rice",
+        price: 80,
+        description: "Delicious vegetable fried rice"
+    },
+
+    {
+        name: "Sandwich",
+        price: 50,
+        description: "Fresh vegetable sandwich"
+    },
+
+    {
+        name: "Fresh Juice",
+        price: 30,
+        description: "Fresh fruit juice"
+    }
+
+];
+
+
+function displayFoods() {
+
+    let list = document.getElementById("foodList");
+
+    list.innerHTML = "";
+
+    foods.forEach(function(food, index) {
+
+        list.innerHTML += `
+
+            <div class="food-card">
+
+                <h3>${food.name}</h3>
+
+                <p>${food.description}</p>
+
+                <h4>₹${food.price}</h4>
+
+                <button onclick="deleteFood(${index})">
+                    🗑️ Delete
+                </button>
+
+            </div>
+
+        `;
+    });
+
+}
+
+
+function addFood() {
+
+    let name =
+        document.getElementById("foodName").value;
+
+    let price =
+        document.getElementById("foodPrice").value;
+
+    let description =
+        document.getElementById("foodDescription").value;
+
+
+    if (name === "" || price === "") {
+
+        alert("Please enter food name and price!");
+
+        return;
+    }
+
+
+    foods.push({
+
+        name: name,
+
+        price: Number(price),
+
+        description: description || "Tasty canteen food"
+
+    });
+
+
+    localStorage.setItem(
+        "foods",
+        JSON.stringify(foods)
+    );
+
+
+    document.getElementById("foodName").value = "";
+
+    document.getElementById("foodPrice").value = "";
+
+    document.getElementById("foodDescription").value = "";
+
+
+    alert("Food added successfully! 🍔");
+
+
+    displayFoods();
+
+}
+
+
+function deleteFood(index) {
+
+    foods.splice(index, 1);
+
+    localStorage.setItem(
+        "foods",
+        JSON.stringify(foods)
+    );
+
+    alert("Food deleted successfully!");
+
+    displayFoods();
+
+}
+
+
+function goAdmin() {
+
+    window.location.href = "admin.html";
+
+}
+
+
+displayFoods();
+
+</script>
+
+</body>
+
+</html>
