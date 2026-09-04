@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Cloud Canteen - Dashboard</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head><body><div class="dashboard-container">
+
+    <!-- Header -->
+    <header class="dashboard-header">
+
+        <div>
+            <h1>🍽️ Cloud Canteen</h1>
+            <p>Pre-Order Management System</p>
+        </div>
+
+        <button class="logout-btn" onclick="logout()">
+            Logout
+        </button>
+
+    </header>
+
+
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+
+        <h2>Welcome, Student! 👋</h2>
+
+        <p>
+            Order your favourite food in advance
+            and save your time.
+        </p>
+
+    </section>
+
+
+    <!-- Dashboard Cards -->
+    <section class="stats-container">
+
+        <div class="stat-card">
+            <div class="stat-icon">🍔</div>
+            <h3>Available Foods</h3>
+            <p>12</p>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🛒</div>
+            <h3>Cart Items</h3>
+            <p id="cartCount">0</p>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">📦</div>
+            <h3>My Orders</h3>
+            <p>5</p>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">⏳</div>
+            <h3>Pending Orders</h3>
+            <p>1</p>
+        </div>
+
+    </section>
+
+
+    <!-- Quick Actions -->
+    <section class="dashboard-section">
+
+        <h2>Quick Actions</h2>
+
+        <div class="action-container">
+
+            <button class="action-card"
+        onclick="window.location.href='menu.html'">
+                    
+
+                <span>🍔</span>
+
+                <strong>View Food Menu</strong>
+
+                <small>Browse available foods</small>
+
+            </button>
+
+
+                       <button class="action-card"
+        onclick="window.location.href='cart.html'">
+                       
+                       <span>🛒</span>
+
+                <strong>My Cart</strong>
+
+                <small>View selected items</small>
+
+            </button>
+
+
+            <button class="action-card"
+                    onclick="window.location.href='orders.html'"
+
+                <span>📦</span>
+
+                <strong>My Orders</strong>
+
+                <small>Track your orders</small>
+
+            </button>
+<button class="action-card"
+        onclick="window.location.href='profile.html'">
+
+    <span>👤</span>
+
+    <strong>My Profile</strong>
+
+    <small>View student details</small>
+
+</button>
+
+        </div>
+
+    </section>
+
+
+    <!-- Today's Menu -->
+    <section class="dashboard-section">
+
+        <div class="section-title">
+
+            <h2>Today's Menu 🍽️</h2>
+
+            <span>Available Now</span>
+
+        </div>
+
+
+        <div class="food-container">
+
+            <div class="food-card">
+
+                <div class="food-image">🍔</div>
+
+                <h3>Veg Burger</h3>
+
+                <p>Fresh vegetable burger</p>
+
+                <div class="food-bottom">
+
+                    <strong>₹60</strong>
+
+                    <button onclick="addToCart('Veg Burger', 60)">
+                        Add
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="food-card">
+
+                <div class="food-image">🍚</div>
+
+                <h3>Veg Fried Rice</h3>
+
+                <p>Delicious vegetable fried rice</p>
+
+                <div class="food-bottom">
+
+                    <strong>₹80</strong>
+
+                    <button onclick="addToCart('Veg Fried Rice', 80)">
+                        Add
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="food-card">
+
+                <div class="food-image">🥪</div>
+
+                <h3>Sandwich</h3>
+
+                <p>Fresh vegetable sandwich</p>
+
+                <div class="food-bottom">
+
+                    <strong>₹50</strong>
+
+                    <button onclick="addToCart('Sandwich', 50)">
+                        Add
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="food-card">
+
+                <div class="food-image">🥤</div>
+
+                <h3>Fresh Juice</h3>
+
+                <p>Fresh fruit juice</p>
+
+                <div class="food-bottom">
+
+                    <strong>₹30</strong>
+
+                    <button onclick="addToCart('Fresh Juice', 30)">
+                        Add
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Recent Order -->
+    <section class="dashboard-section">
+
+        <h2>Recent Order 📦</h2>
+
+        <div class="order-card">
+
+            <div>
+                <strong>Order #CC1005</strong>
+
+                <p>
+                    Veg Burger × 1
+                </p>
+
+                <small>
+                    Today, 12:30 PM
+                </small>
+            </div>
+
+            <span class="status">
+                Preparing
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            © 2026 Cloud Canteen | Pre-Order Management System
+        </p>
+
+    </footer>
+
+</div>
+
+
+<script>
+
+    function addToCart(foodName, price) {
+
+        let cartCount =
+            parseInt(
+                document.getElementById("cartCount").innerText
+            );
+
+        cartCount++;
+
+        document.getElementById("cartCount").innerText =
+            cartCount;
+
+        alert(foodName + " added to cart!");
+
+    }
+
+
+    function logout() {
+
+        window.location.href = "index.html";
+
+    }
+
+</script>
+
+</body>
+</html>
