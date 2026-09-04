@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart - Cloud Canteen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="dashboard-header">
+    <div>
+        <h2>🍽️ Cloud Canteen</h2>
+        <p>Pre-Order Management System</p>
+    </div>
+
+    <button onclick="goDashboard()">Dashboard</button>
+</header>
+
+<main class="menu-container">
+
+    <h1>🛒 My Cart</h1>
+    <p class="menu-subtitle">Review your selected food items.</p>
+
+    <div id="cartItems"></div>
+
+    <div class="cart-summary">
+        <h2>Total Amount: ₹<span id="total">0</span></h2>
+
+        <button onclick="placeOrder()" class="order-btn">
+            Place Order
+        </button>
+    </div>
+
+</main>
+
+<script>
+
+function loadCart() {
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    let cartItems = document.getElementById("cartItems");
+    let total = 0;
+
+    cartItems.innerHTML = "";
+
+    if (cart.length === 0) {
+
+        cartItems.innerHTML =
+            "<h3>Your cart is empty 🛒</h3>";
+
+        document.getElementById("total").innerText = "0";
+
+        return;
+    }
+
+    cart.forEach(function(item, index) {
+
+        total += item.price;
+
+        cartItems.innerHTML += `
+            <div class="food-card">
+                <h3>${item.name}</h3>
+                <p>Price: ₹${item.price}</p>
+
+                <button onclick="removeItem(${index})">
+                    Remove
+                </button>
+            </div>
+        `;
+    });
+
+    document.getElementById("total").innerText = total;
+}
+
+
+function removeItem(index) {
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart.splice(index, 1);
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    loadCart();
+}
+
+
+function placeOrder() {
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    if (cart.length === 0) {
+
+        alert("Your cart is empty!");
+
+        return;
+    }
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+let total = cart.reduce(function(sum, item) {
+    return sum + item.price;
+}, 0);
+
+orders.push({
+    items: cart.map(item => item.name).join(", "),
+    total: total,
+    date: new Date().toLocaleString(),
+    status: "Placed"
+});
+
+localStorage.setItem("orders", JSON.stringify(orders));
+
+    alert("Order placed successfully! 🎉");
+
+    localStorage.removeItem("cart");
+
+    loadCart();
+}
+
+
+function goDashboard() {
+
+    window.location.href = "dashboard.html";
+
+}
+
+
+loadCart();
+
+</script>
+
+</body>
+</html>
